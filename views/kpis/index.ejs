@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" dir="ltr">
+
+<head>
+  <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+
+  <meta http-equiv="X-UA-Compatible" content="chrome=1">
+  <meta name="google" value="notranslate">
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+  <link rel='stylesheet' href='/stylesheets/style.css' />
+
+  <title>Lol</title>
+</head>
+
+<body>
+  <div class="container">
+    <!-- <h3><a href="/kpis/create">Create kpi</a></h3> -->
+    <h1>kpi List</h1>
+    <% if(kpis.length>0) { %>
+      <table class="list-table">
+        <thead>
+          <tr>
+            <th>active</th>
+            <th>ID</th>
+            <th>Type</th>
+            <th>Name</th>
+            <th>Formula</th>
+            <th>Division</th>
+            <th>Executive</th>
+            <th>Tags</th>
+          </tr>
+        </thead>
+        <tbody>
+
+          <% for(var i=0; i<kpis.length;i++) { %>
+
+            <tr>
+              <form action="/kpis/update/<%= kpis[i]._id%>" method="post">
+                <td><input type="checkbox" name="active" name="<%= kpis[i].active %>" <%=kpis[i].active ? "checked" : " " %> /></td>
+                <td><input type="number" name="ID" value="<%= kpis[i].ID %>" /></td>
+                <td><input type="text" name="type" value="<%= kpis[i].type %>" /></td>
+                <td><input type="text" name="name" value="<%= kpis[i].name %>" /></td>
+                <td><input type="text" name="formula" value="<%= kpis[i].formula %>" /></td>
+                <td><input type="text" name="division" value="<%= kpis[i].division %>" /></td>
+                <td><input type="text" name="executive" value="<%= kpis[i].executive %>" /></td>
+                <td><input type="text" name="tags" value="<%= kpis[i].tags %>" /></td>
+                <button type="submit" style="display: none">Update</button>
+              </form>
+              <td colspan="2">
+                <form action="/kpis/delete/<%= kpis[i]._id%>" method="post">
+                  <button type="submit">DELETE</button>
+                </form>
+              </td>
+
+            </tr>
+
+            <% } %>
+
+        </tbody>
+      </table>
+      <% } else { %>
+      <div>No kpis found.</div>
+    <% } %>
+
+
+    <form action="/kpis/save" method="post">
+      <button type="submit">Create new KPI</button>
+    </form>
+
+    <form action="/kpis/updatemany" method="post">
+      <button type="submit">Update All</button>
+    </form>
+
+  </div>
+  <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+
+</html>
